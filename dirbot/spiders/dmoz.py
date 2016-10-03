@@ -22,16 +22,12 @@ class DmozSpider(Spider):
         """
         sel = Selector(response)
         sites = sel.xpath('//div[@class="title-and-desc"]')
-        print "len ------>" + str(len(sites))
         items = []        
         for site in sites:
             item = Website()
             item['name'] = site.xpath('a/div[@class="site-title"]/text()').extract_first()
-            print '------->' + item['name']
             item['url'] = site.xpath('a/@href').extract_first()
-            print '------->' + item['url']
             item['desc'] = site.xpath('div[@class="site-descr "]/text()').extract_first()
-            print '------->' + item['desc']
             items.append(item)
 
         return items
